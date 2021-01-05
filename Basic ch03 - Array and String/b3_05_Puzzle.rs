@@ -14,8 +14,8 @@ struct Puzzle {
 impl Puzzle {
     fn new(id:i32) -> Self { Puzzle::new_with_xy(id,5,5) }
 
-    fn new_with_xy(id:i32,size_x:usize, size_y:usize) -> Self {
-        Puzzle{id, grid:vec![vec![' ';size_x];size_y], filled:0, x:0, y:0, size_x, size_y}
+    fn new_with_xy(id:i32,size_x:u32, size_y:u32) -> Self {
+        Puzzle{id, grid:vec![vec![' ';size_x as usize];size_y as usize], filled:0, x:0, y:0, size_x:size_x as usize, size_y:size_y as usize}
     }
 
     fn fill(&mut self, line:String) {
