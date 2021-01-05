@@ -15,7 +15,8 @@ impl Puzzle {
     fn new(id:i32) -> Self { Puzzle::new_with_xy(id,5,5) }
 
     fn new_with_xy(id:i32,size_x:u32, size_y:u32) -> Self {
-        Puzzle{id, grid:vec![vec![' ';size_x as usize];size_y as usize], filled:0, x:0, y:0, size_x:size_x as usize, size_y:size_y as usize}
+        let size_x = size_x as usize; let size_y = size_y as usize; 
+        Puzzle{id, grid:vec![vec![' ';size_x];size_y], filled:0, x:0, y:0, size_x, size_y}
     }
 
     fn fill(&mut self, line:String) {
@@ -29,10 +30,11 @@ impl Puzzle {
     fn mov(&mut self,p:(i32,i32)) -> bool {
         let (xx,yy) = (self.x as i64 + p.0 as i64, self.y as i64 + p.1 as i64);
         if 0<=xx && xx<self.size_x as i64 && 0<=yy && yy<self.size_y as i64 {
+            let (xx,yy) = (xx as usize,yy as usize);
             let t = self.grid[self.x][self.y];
-            self.grid[self.x][self.y] = self.grid[xx as usize][yy as usize];
-            self.grid[xx as usize][yy as usize] = t;
-            self.x = xx as usize; self.y = yy as usize;
+            self.grid[self.x][self.y] = self.grid[xx][yy];
+            self.grid[xx][yy] = t;
+            self.x = xx; self.y = yy;
             true
         } else { false }
     }
